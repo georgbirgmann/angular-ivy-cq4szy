@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FactoryType } from './factorytype';
 import { FACTORYTYPES } from './mock-factorytypes';
+import { FactorytypesService } from './factorytypes.service';
 
 @Component({
   selector: 'app-factorytypes',
@@ -9,11 +10,13 @@ import { FACTORYTYPES } from './mock-factorytypes';
 })
 export class FactorytypesComponent implements OnInit {
 
-  types = FACTORYTYPES;
+  types: FactoryType[] = [];
 
-  constructor() { }
+  constructor(private typeService: FactorytypesService) { }
 
-  ngOnInit() {
+  ngOnInit(): void { this.getTypes();
   }
+
+  getTypes(): void {this.types = this.typeService.getTypes();}
 
 }
