@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FactoryType } from './factorytype';
 import { FACTORYTYPES } from './mock-factorytypes';
 import { FactorytypesService } from './factorytypes.service';
-
+import { Observable, throwError } from 'rxjs';
 @Component({
   selector: 'app-factorytypes',
   templateUrl: './factorytypes.component.html',
@@ -10,13 +10,18 @@ import { FactorytypesService } from './factorytypes.service';
 })
 export class FactorytypesComponent implements OnInit {
 
-  types: FactoryType[] = [];
+  types: FactoryType[] =null;
 
   constructor(private typeService: FactorytypesService) { }
 
-  ngOnInit(): void { this.getTypes();
+  ngOnInit(): void { 
+    this.getTypes();
+
+    
   }
 
-  getTypes(): void {this.types = this.typeService.getTypes();}
+  getTypes(): void {
+    this.typeService.getTypesWS().subscribe(tp => this.types = tp);
+  }
 
 }
